@@ -1,3 +1,5 @@
+import math
+
 # Параметры геометрии по умолчанию
 DEFAULT_PARAMS = {
     'L': 460,        # Длина канала
@@ -64,6 +66,78 @@ VERTICES = [
     (8.8388, -83.6836, -5), # 46
     (-8.8388, -83.6836, -5) # 47
 ]
+
+
+def recalculate_vertices(params):
+    global VERTICES
+    L = params['L']
+    l_top = params['l_top']
+    l_bot = params['l_bot']
+    w_top = params['w_top']
+    w_mid = params['w_mid']
+    w_bot = params['w_bot']
+    a_top = params['a_top']
+    a_bot = params['a_bot']
+    D = params['D']
+
+    vor_top = abs(1/math.tan(a_top / 2 * math.pi / 180) * (w_top - w_mid) / 2)
+    vor_bot = abs(1/math.tan(a_bot / 2 * math.pi / 180) * (w_bot - w_mid) / 2)
+    l_mid = L - l_top - l_bot - vor_top - vor_bot
+    sq_crcl = D / math.sqrt(2) / 2
+
+    crcl_smesh = 1
+
+    VERTICES = [
+        (-w_top/2, l_top + vor_top + l_mid / 2, 5),    # 0
+        (w_top/2, l_top + vor_top + l_mid / 2, 5),     # 1
+        (w_top/2, vor_top + l_mid / 2, 5),     # 2
+        (w_mid/2, l_mid/2, 5),       # 3
+        (w_mid/2, l_mid/2 - D - crcl_smesh * 2, 5),       # 4
+        (w_mid/2, -(l_mid/2 - D - crcl_smesh * 2), 5),      # 5
+        (w_mid/2, -l_mid/2, 5),      # 6
+        (w_bot/2, -(l_mid/2 + vor_bot), 5),    # 7
+        (w_bot/2, -(l_bot + vor_bot + l_mid / 2), 5),    # 8
+        (-w_bot/2, -(l_bot + vor_bot + l_mid / 2), 5),   # 9
+        (-w_bot/2, -(l_mid/2 + vor_bot), 5),   # 10
+        (-w_mid/2, -l_mid/2, 5),     # 11
+        (-w_mid/2, -(l_mid/2 - D - crcl_smesh * 2), 5),     # 12
+        (-w_mid/2, l_mid/2 - D - crcl_smesh * 2, 5),      # 13
+        (-w_mid/2, l_mid/2, 5),      # 14
+        (-w_top/2, vor_top + l_mid / 2, 5),    # 15
+        (-sq_crcl, l_mid/2 - crcl_smesh - (D/2 - sq_crcl), 5),  # 16
+        (sq_crcl, l_mid/2 - crcl_smesh - (D/2 - sq_crcl), 5),   # 17
+        (sq_crcl, l_mid/2 - crcl_smesh - D/2 - sq_crcl, 5),   # 18
+        (-sq_crcl, l_mid/2 - crcl_smesh - D/2 - sq_crcl, 5),  # 19
+        (-sq_crcl, -(l_mid/2 - crcl_smesh - D/2 - sq_crcl), 5), # 20
+        (sq_crcl, -(l_mid/2 - crcl_smesh - D/2 - sq_crcl), 5),  # 21
+        (sq_crcl, -(l_mid/2 - crcl_smesh - (D/2 - sq_crcl)), 5),  # 22
+        (-sq_crcl, -(l_mid/2 - crcl_smesh - (D/2 - sq_crcl)), 5), # 23
+        (-w_top/2, l_top + vor_top + l_mid / 2, -5),   # 24
+        (w_top/2, l_top + vor_top + l_mid / 2, -5),    # 25
+        (w_top/2, vor_top + l_mid / 2, -5),    # 26
+        (w_mid/2, l_mid/2, -5),      # 27
+        (w_mid/2, l_mid/2 - D - crcl_smesh * 2, -5),      # 28
+        (w_mid/2, -(l_mid/2 - D - crcl_smesh * 2), -5),     # 29
+        (w_mid/2, -l_mid/2, -5),     # 30
+        (w_bot/2, -(l_mid/2 + vor_bot), -5),   # 31
+        (w_bot/2, -(l_bot + vor_bot + l_mid / 2), -5),   # 32
+        (-w_bot/2, -(l_bot + vor_bot + l_mid / 2), -5),  # 33
+        (-w_bot/2, -(l_mid/2 + vor_bot), -5),  # 34
+        (-w_mid/2, -l_mid/2, -5),    # 35
+        (-w_mid/2, -(l_mid/2 - D - crcl_smesh * 2), -5),    # 36
+        (-w_mid/2, l_mid/2 - D - crcl_smesh *   2, -5),     # 37
+        (-w_mid/2, l_mid/2, -5),     # 38
+        (-w_top/2, vor_top + l_mid / 2, -5),   # 39
+        (-sq_crcl, l_mid/2 - crcl_smesh - (D/2 - sq_crcl), -5), # 40
+        (sq_crcl, l_mid/2 - crcl_smesh - (D/2 - sq_crcl), -5),  # 41
+        (sq_crcl, l_mid/2 - crcl_smesh - D/2 - sq_crcl, -5),  # 42
+        (-sq_crcl, l_mid/2 - crcl_smesh - D/2 - sq_crcl, -5), # 43
+        (-sq_crcl, -(l_mid/2 - crcl_smesh - D/2 - sq_crcl), -5),# 44
+        (sq_crcl, -(l_mid/2 - crcl_smesh - D/2 - sq_crcl), -5), # 45
+        (sq_crcl, -(l_mid/2 - crcl_smesh - (D/2 - sq_crcl)), -5), # 46
+        (-sq_crcl, -(l_mid/2 - crcl_smesh - (D/2 - sq_crcl)), -5) # 47
+    ]
+
 
 def get_vertices_string():
     """Возвращает строку с вершинами для blockMeshDict"""
@@ -175,23 +249,23 @@ blocks
 edges
 (
     // top circle
- arc 16 17 (0 87.2457 5)
- arc 40 41 (0 87.2457 -5)
- arc 17 18 (12.5 74.7457 5)
- arc 41 42 (12.5 74.7457 -5)
- arc 18 19 (0 62.2457 5)
- arc 42 43 (0 62.2457 -5)
- arc 19 16 (-12.5 74.7457 5)
- arc 43 40 (-12.5 74.7457 -5)
+ arc 16 17 (0 {VERTICES[3][1]-1}7 5)
+ arc 40 41 (0 {VERTICES[3][1]-1} -5)
+ arc 17 18 ({params["D"]/2} {(VERTICES[17][1]+VERTICES[18][1])/2} 5)
+ arc 41 42 ({params["D"]/2} {(VERTICES[17][1]+VERTICES[18][1])/2} -5)
+ arc 18 19 (0 {VERTICES[4][1]+1} 5)
+ arc 42 43 (0 {VERTICES[4][1]+1} -5)
+ arc 19 16 (-{params["D"]/2} {(VERTICES[17][1]+VERTICES[18][1])/2} 5)
+ arc 43 40 (-{params["D"]/2} {(VERTICES[17][1]+VERTICES[18][1])/2} -5)
     // bot circle
- arc 22 23 (0 -87.2457 5)
- arc 46 47 (0 -87.2457 -5)
- arc 21 22 (12.5 -74.7457 5)
- arc 45 46 (12.5 -74.7457 -5)
- arc 20 21 (0 -62.2457 5)
- arc 44 45 (0 -62.2457 -5)
- arc 23 20 (-12.5 -74.7457 5)
- arc 47 44 (-12.5 -74.7457 -5)
+ arc 22 23 (0 -{VERTICES[3][1]-1} 5)
+ arc 46 47 (0 -{VERTICES[3][1]-1} -5)
+ arc 21 22 ({params["D"]/2} -{(VERTICES[17][1]+VERTICES[18][1])/2} 5)
+ arc 45 46 ({params["D"]/2} -{(VERTICES[17][1]+VERTICES[18][1])/2} -5)
+ arc 20 21 (0 -{VERTICES[4][1]+1} 5)
+ arc 44 45 (0 -{VERTICES[4][1]+1} -5)
+ arc 23 20 (-{params["D"]/2} -{(VERTICES[17][1]+VERTICES[18][1])/2} 5)
+ arc 47 44 (-{params["D"]/2} -{(VERTICES[17][1]+VERTICES[18][1])/2} -5)
 );
 
 boundary

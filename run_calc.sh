@@ -2,5 +2,6 @@
 
 cd $(dirname $0)/model
 
-pisoFoam
+# pisoFoam
+foamRun -solver incompressibleFluid
 paraFoam

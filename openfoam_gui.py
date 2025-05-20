@@ -13,14 +13,15 @@ from configs import (
     DEFAULT_PARAMS,
     TRACER_FIELD,
     get_control_dict,
-    get_block_mesh_dict
+    get_block_mesh_dict,
+    recalculate_vertices
 )
 
 class OpenFOAMController:
     def __init__(self, root):
         self.root = root
         self.root.title("OpenFOAM Controller")
-        self.root.geometry("600x800")
+        self.root.geometry("600x500")
         
         # Создаем и размещаем элементы интерфейса
         self.create_widgets()
@@ -55,8 +56,8 @@ class OpenFOAMController:
         create_param_entry("Диаметр цилиндров (D):", "D", row); row += 1
         
         # Поля для параметров расчета
-        create_param_entry("Время расчета (endTime):", "endTime", 0)
-        create_param_entry("Интервал записи (writeInterval):", "writeInterval", 1)
+        create_param_entry("Время расчета (endTime):", "endTime", row); row += 1
+        create_param_entry("Интервал записи (writeInterval):", "writeInterval", row); row += 1
         
         # Фрейм для кнопок
         button_frame = ttk.Frame(self.root, padding="10")
@@ -95,7 +96,8 @@ class OpenFOAMController:
             params = self.get_params()
             if params is None:
                 return
-                
+            # Пересчитываем вершины
+            recalculate_vertices(params)
             # Создаем структуру директорий и файлов
             self.create_directory_structure(params)
 
@@ -108,6 +110,8 @@ class OpenFOAMController:
             # Запускаем расчет
             subprocess.run(["./build.sh"])
             subprocess.run(["./run_calc.sh"])
+
+            self.status_label.config(text="Готов к работе")
             
         except Exception as e:
             messagebox.showerror("Ошибка", f"Произошла ошибка: {str(e)}")
