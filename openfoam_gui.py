@@ -122,6 +122,7 @@ class OpenFOAMController:
         
         if l_mid <= params['w_mid'] * 2.3:
             self.status_label.config(text="Ошибка: длина среднего участка должна быть больше 2.3 * w_mid")
+            return False
         return True
         
     def get_params(self):
