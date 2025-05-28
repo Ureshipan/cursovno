@@ -45,19 +45,19 @@ class OpenFOAMController:
             return entry
         
         # Создаем поля ввода
-        create_param_entry("Длина канала (L):", "L", row); row += 1
-        create_param_entry("Длина выходного участка (l_top):", "l_top", row); row += 1
-        create_param_entry("Длина входного участка (l_bot):", "l_bot", row); row += 1
-        create_param_entry("Ширина выходного участка (w_top):", "w_top", row); row += 1
-        create_param_entry("Ширина среднего участка (w_mid):", "w_mid", row); row += 1
-        create_param_entry("Ширина входного участка (w_bot):", "w_bot", row); row += 1
-        create_param_entry("Угол выходной воронки (a_top):", "a_top", row); row += 1
-        create_param_entry("Угол входной воронки (a_bot):", "a_bot", row); row += 1
-        create_param_entry("Диаметр цилиндров (D):", "D", row); row += 1
+        create_param_entry("L (Длина канала):", "L", row); row += 1
+        create_param_entry("l_top (Длина выходного участка):", "l_top", row); row += 1
+        create_param_entry("l_bot (Длина входного участка):", "l_bot", row); row += 1
+        create_param_entry("w_top (Ширина выходного участка):", "w_top", row); row += 1
+        create_param_entry("w_mid (Ширина среднего участка):", "w_mid", row); row += 1
+        create_param_entry("w_bot (Ширина входного участка):", "w_bot", row); row += 1
+        create_param_entry("a_top (Угол выходной воронки):", "a_top", row); row += 1
+        create_param_entry("a_bot (Угол входной воронки):", "a_bot", row); row += 1
+        create_param_entry("D (Диаметр цилиндров):", "D", row); row += 1
         
         # Поля для параметров расчета
-        create_param_entry("Время расчета (endTime):", "endTime", row); row += 1
-        create_param_entry("Интервал записи (writeInterval):", "writeInterval", row); row += 1
+        create_param_entry("endTime (Время расчета):", "endTime", row); row += 1
+        create_param_entry("writeInterval (Интервал записи):", "writeInterval", row); row += 1
         
         # Фрейм для кнопок
         button_frame = ttk.Frame(self.root, padding="10")
