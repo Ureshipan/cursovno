@@ -249,23 +249,23 @@ blocks
 edges
 (
     // top circle
- arc 16 17 (0 {(VERTICES[18][1]+VERTICES[17][1]) / 2 + params["D"]/2} {VERTICES[0][2]})
- arc 40 41 (0 {(VERTICES[18][1]+VERTICES[17][1]) / 2 + params["D"]/2} -{VERTICES[0][2]})
- arc 17 18 ({params["D"]/2} {(VERTICES[17][1]+VERTICES[18][1])/2} {VERTICES[0][2]})
- arc 41 42 ({params["D"]/2} {(VERTICES[17][1]+VERTICES[18][1])/2} -{VERTICES[0][2]})
- arc 18 19 (0 {(VERTICES[18][1]+VERTICES[17][1]) / 2 - params["D"]/2} {VERTICES[0][2]})
- arc 42 43 (0 {(VERTICES[18][1]+VERTICES[17][1]) / 2 - params["D"]/2} -{VERTICES[0][2]})
- arc 19 16 (-{params["D"]/2} {(VERTICES[17][1]+VERTICES[18][1])/2} {VERTICES[0][2]})
- arc 43 40 (-{params["D"]/2} {(VERTICES[17][1]+VERTICES[18][1])/2} -{VERTICES[0][2]})
+    arc 16 17 (0 {(VERTICES[18][1]+VERTICES[17][1]) / 2 + params["D"]/2} {VERTICES[0][2]})
+    arc 40 41 (0 {(VERTICES[18][1]+VERTICES[17][1]) / 2 + params["D"]/2} -{VERTICES[0][2]})
+    arc 17 18 ({params["D"]/2} {(VERTICES[17][1]+VERTICES[18][1])/2} {VERTICES[0][2]})
+    arc 41 42 ({params["D"]/2} {(VERTICES[17][1]+VERTICES[18][1])/2} -{VERTICES[0][2]})
+    arc 18 19 (0 {(VERTICES[18][1]+VERTICES[17][1]) / 2 - params["D"]/2} {VERTICES[0][2]})
+    arc 42 43 (0 {(VERTICES[18][1]+VERTICES[17][1]) / 2 - params["D"]/2} -{VERTICES[0][2]})
+    arc 19 16 (-{params["D"]/2} {(VERTICES[17][1]+VERTICES[18][1])/2} {VERTICES[0][2]})
+    arc 43 40 (-{params["D"]/2} {(VERTICES[17][1]+VERTICES[18][1])/2} -{VERTICES[0][2]})
     // bot circle
- arc 22 23 (0 -{(VERTICES[18][1]+VERTICES[17][1]) / 2 + params["D"]/2} {VERTICES[0][2]})
- arc 46 47 (0 -{(VERTICES[18][1]+VERTICES[17][1]) / 2 + params["D"]/2} -{VERTICES[0][2]})
- arc 21 22 ({params["D"]/2} -{(VERTICES[17][1]+VERTICES[18][1])/2} {VERTICES[0][2]})
- arc 45 46 ({params["D"]/2} -{(VERTICES[17][1]+VERTICES[18][1])/2} -{VERTICES[0][2]})
- arc 20 21 (0 -{(VERTICES[18][1]+VERTICES[17][1]) / 2 - params["D"]/2} {VERTICES[0][2]})
- arc 44 45 (0 -{(VERTICES[18][1]+VERTICES[17][1]) / 2 - params["D"]/2} -{VERTICES[0][2]})
- arc 23 20 (-{params["D"]/2} -{(VERTICES[17][1]+VERTICES[18][1])/2} {VERTICES[0][2]})
- arc 47 44 (-{params["D"]/2} -{(VERTICES[17][1]+VERTICES[18][1])/2} -{VERTICES[0][2]})
+    arc 22 23 (0 -{(VERTICES[18][1]+VERTICES[17][1]) / 2 + params["D"]/2} {VERTICES[0][2]})
+    arc 46 47 (0 -{(VERTICES[18][1]+VERTICES[17][1]) / 2 + params["D"]/2} -{VERTICES[0][2]})
+    arc 21 22 ({params["D"]/2} -{(VERTICES[17][1]+VERTICES[18][1])/2} {VERTICES[0][2]})
+    arc 45 46 ({params["D"]/2} -{(VERTICES[17][1]+VERTICES[18][1])/2} -{VERTICES[0][2]})
+    arc 20 21 (0 -{(VERTICES[18][1]+VERTICES[17][1]) / 2 - params["D"]/2} {VERTICES[0][2]})
+    arc 44 45 (0 -{(VERTICES[18][1]+VERTICES[17][1]) / 2 - params["D"]/2} -{VERTICES[0][2]})
+    arc 23 20 (-{params["D"]/2} -{(VERTICES[17][1]+VERTICES[18][1])/2} {VERTICES[0][2]})
+    arc 47 44 (-{params["D"]/2} -{(VERTICES[17][1]+VERTICES[18][1])/2} -{VERTICES[0][2]})
 );
 
 boundary

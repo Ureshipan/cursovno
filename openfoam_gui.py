@@ -1,3 +1,4 @@
+import math
 import tkinter as tk
 from tkinter import ttk, messagebox
 import os
@@ -79,6 +80,50 @@ class OpenFOAMController:
         )
         self.status_label.pack(pady=10)
         
+    def validate_params(self, params):
+        """Проверяет корректность введенных параметров"""
+        # Проверка на положительные значения
+        for name, value in params.items():
+            if value <= 0:
+                self.status_label.config(text=f"Ошибка: параметр {name} должен быть положительным")
+                return False
+
+        # Проверка соотношений размеров
+        if params['w_top'] <= params['w_mid']:
+            self.status_label.config(text="Ошибка: w_top должен быть больше w_mid")
+            return False
+
+        if params['w_bot'] <= params['w_mid']:
+            self.status_label.config(text="Ошибка: w_bot должен быть больше w_mid")
+            return False
+
+        # Проверка углов
+        if params['a_top'] <= 0 or params['a_top'] >= 130:
+            self.status_label.config(text="Ошибка: угол a_top должен быть между 0 и 90 градусами")
+            return False
+
+        if params['a_bot'] <= 0 or params['a_bot'] >= 130:
+            self.status_label.config(text="Ошибка: угол a_bot должен быть между 0 и 90 градусами")
+            return False
+
+        # Проверка диаметра цилиндров
+        if params['D'] >= params['w_mid'] / 3 * 2:
+            self.status_label.config(text="Ошибка: диаметр цилиндров должен быть меньше 2/3 от w_mid")
+            return False
+
+        # Проверка временных параметров
+        if params['writeInterval'] >= params['endTime'] / 2:
+            self.status_label.config(text="Ошибка: writeInterval должен быть меньше половины endTime")
+            return False
+        
+        vor_top = abs(1/math.tan(params['a_top'] / 2 * math.pi / 180) * (params['w_top'] - params['w_mid']) / 2)
+        vor_bot = abs(1/math.tan(params['a_bot'] / 2 * math.pi / 180) * (params['w_bot'] - params['w_mid']) / 2)
+        l_mid = params['L'] - params['l_top'] - params['l_bot'] - vor_top - vor_bot
+        
+        if l_mid <= params['w_mid'] * 2.3:
+            self.status_label.config(text="Ошибка: длина среднего участка должна быть больше 2.3 * w_mid")
+        return True
+        
     def get_params(self):
         """Получает значения параметров из полей ввода"""
         params = {}
@@ -86,7 +131,7 @@ class OpenFOAMController:
             try:
                 params[name] = float(entry.get())
             except ValueError:
-                messagebox.showerror("Ошибка", f"Неверное значение параметра {name}")
+                self.status_label.config(text=f"Ошибка: неверное значение параметра {name}")
                 return None
         return params
         
@@ -96,6 +141,11 @@ class OpenFOAMController:
             params = self.get_params()
             if params is None:
                 return
+
+            # Проверяем параметры
+            if not self.validate_params(params):
+                return
+
             # Пересчитываем вершины
             recalculate_vertices(params)
             # Создаем структуру директорий и файлов
@@ -114,8 +164,8 @@ class OpenFOAMController:
             self.status_label.config(text="Готов к работе")
             
         except Exception as e:
+            self.status_label.config(text=f"Ошибка: {str(e)}")
             messagebox.showerror("Ошибка", f"Произошла ошибка: {str(e)}")
-            self.status_label.config(text="Ошибка при запуске")
     
     def create_directory_structure(self, params):
         # Создаем основные директории
