@@ -147,13 +147,13 @@ class OpenFOAMController:
             if not self.validate_params(params):
                 return
 
+            # Очищаем директорию
+            subprocess.run(["./clean.sh"])
+
             # Пересчитываем вершины
             recalculate_vertices(params)
             # Создаем структуру директорий и файлов
             self.create_directory_structure(params)
-
-            # Очищаем директорию
-            subprocess.run(["./clean.sh"])
 
             # Обновляем статус
             self.status_label.config(text="Расчет запущен")
