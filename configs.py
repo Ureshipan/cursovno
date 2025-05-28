@@ -135,7 +135,7 @@ def recalculate_vertices(params):
         (-sq_crcl, -(l_mid/2 - w_mid / 2 - sq_crcl), -height/2),# 44
         (sq_crcl, -(l_mid/2 - w_mid / 2 - sq_crcl), -height/2), # 45
         (sq_crcl, -(l_mid/2 - w_mid / 2 + sq_crcl), -height/2), # 46
-        (-sq_crcl, -(l_mid/2 - w_mid / 2 + sq_crcl), -5) # 47
+        (-sq_crcl, -(l_mid/2 - w_mid / 2 + sq_crcl), -height/2) # 47
     ]
 
 
