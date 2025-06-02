@@ -204,7 +204,7 @@ class OpenFOAMController:
 
             # Запускаем расчет
             subprocess.run(["./build.sh"])
-            subprocess.run(["./run_calc.sh"])
+            subprocess.run(["./calculate.sh"])
 
             self.status_label.config(text="Готов к работе")
             
