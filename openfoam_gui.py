@@ -198,14 +198,6 @@ class OpenFOAMController:
         self.status_label.config(text="Построение завершено")
 
     def run_calc(self):
-        params = self.get_params()
-        if params is None:
-            self.status_label.config(text="Ошибка параметров")
-            return
-        if not self.validate_params(params):
-            return
-        recalculate_vertices(params)
-        self.create_directory_structure(params)
         try:
             self.calc_process = subprocess.Popen(
                 ["./calculate.sh"],
