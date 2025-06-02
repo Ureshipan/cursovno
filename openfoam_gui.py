@@ -17,20 +17,35 @@ from configs import (
     get_block_mesh_dict,
     recalculate_vertices
 )
+from PIL import Image, ImageTk  # pip install pillow
 
 class OpenFOAMController:
     def __init__(self, root):
         self.root = root
         self.root.title("OpenFOAM Controller")
-        self.root.geometry("600x500")
+        self.root.geometry("700x500")
+        
+        # Настраиваем grid для root
+        self.root.rowconfigure(0, weight=1)
+        self.root.rowconfigure(1, weight=0)
+        self.root.columnconfigure(0, weight=1)
         
         # Создаем и размещаем элементы интерфейса
         self.create_widgets()
         
     def create_widgets(self):
-        # Фрейм для параметров
-        params_frame = ttk.LabelFrame(self.root, text="Параметры геометрии", padding="10")
-        params_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=5)
+        # Основной фрейм (параметры + картинка)
+        main_frame = ttk.Frame(self.root)
+        main_frame.grid(row=0, column=0, sticky="nsew")
+        main_frame.columnconfigure(0, weight=1)
+        main_frame.columnconfigure(1, weight=1)
+        main_frame.rowconfigure(0, weight=1)
+        
+        # Левый фрейм с параметрами
+        params_frame = ttk.LabelFrame(main_frame, text="Параметры", padding="10")
+        params_frame.grid(row=0, column=0, sticky="nsew", padx=10, pady=10)
+        params_frame.columnconfigure(0, weight=1)
+        params_frame.columnconfigure(1, weight=1)
         
         # Создаем поля ввода для параметров
         self.params = {}
@@ -60,9 +75,38 @@ class OpenFOAMController:
         create_param_entry("endTime (Время расчета):", "endTime", row); row += 1
         create_param_entry("writeInterval (Интервал записи):", "writeInterval", row); row += 1
         
-        # Фрейм для кнопок
+        # Правый фрейм с изображением
+        image_frame = ttk.Frame(main_frame)
+        image_frame.grid(row=0, column=1, sticky="nsew", padx=10, pady=10)
+        image_frame.rowconfigure(0, weight=1)
+        image_frame.columnconfigure(0, weight=1)
+
+        # Загрузка оригинального изображения
+        try:
+            self.img_orig = Image.open("chert_clear.png")
+        except Exception as e:
+            self.img_orig = None
+
+        self.img_label = ttk.Label(image_frame)
+        self.img_label.grid(row=0, column=0, sticky="nsew")
+
+        def resize_image(event):
+            if self.img_orig:
+                # Получаем размер фрейма
+                w, h = event.width, event.height
+                # Сохраняем пропорции
+                img = self.img_orig.copy()
+                img.thumbnail((w, h), Image.LANCZOS)
+                self.tk_img = ImageTk.PhotoImage(img)
+                self.img_label.configure(image=self.tk_img)
+            else:
+                self.img_label.configure(text="Нет изображения")
+
+        image_frame.bind("<Configure>", resize_image)
+        
+        # Фрейм для кнопок и статуса (внизу)
         button_frame = ttk.Frame(self.root, padding="10")
-        button_frame.pack(fill=tk.BOTH, expand=True)
+        button_frame.grid(row=1, column=0, sticky="ew")
         
         # Кнопка запуска
         self.run_button = ttk.Button(
