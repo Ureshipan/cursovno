@@ -136,10 +136,10 @@ class OpenFOAMController:
             self.status_label.config(text="Ошибка: w_bot должен быть больше w_mid")
             return False
         if params['a_top'] <= 0 or params['a_top'] >= 130:
-            self.status_label.config(text="Ошибка: угол a_top должен быть между 0 и 90 градусами")
+            self.status_label.config(text="Ошибка: угол a_top должен быть между 0 и 130 градусами")
             return False
         if params['a_bot'] <= 0 or params['a_bot'] >= 130:
-            self.status_label.config(text="Ошибка: угол a_bot должен быть между 0 и 90 градусами")
+            self.status_label.config(text="Ошибка: угол a_bot должен быть между 0 и 130 градусами")
             return False
         if params['D'] >= params['w_mid'] / 3 * 2:
             self.status_label.config(text="Ошибка: диаметр цилиндров должен быть меньше 2/3 от w_mid")
